@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Data Visualisation Exercise 1" />
+    <meta name="keywords" content="HTML, CSS, D3" />
+    <meta name="author" content="Jericho Black" />
+
+    <title></title>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        h1 {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Line Graph of Health Status Improvement Across Years in Germany</h1>
+
+    <p id="chart"></p>
+
+    <script>
+
+        // set the dimensions and margins of the graph
+        var w = 500;
+        var h = 500;
+        var padding = 60;
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+        //Read the data
+        d3.csv("germanyhealthstatus.csv", function (d) {
+            return {
+                year: +d.Year,
+                bottomQuintile: d.GermanyBQ !== ".." ? +d.GermanyBQ : null,
+                topQuintile: d.GermanyTQ !== ".." ? +d.GermanyTQ : null,
+            };
+        }).then(function (data) {
+
+            // Add X axis
+            var xScale = d3.scaleLinear()
+                .domain(d3.extent(data, function (d) { return d.year; }))
+                .range([padding, w - padding]);
+            svg.append("g")
+                .attr("transform", `translate(0, ${h - padding})`)
+                .call(d3.axisBottom(xScale).ticks(5));
+
+            // Add Y axis
+            var yScale = d3.scaleLinear()
+                .domain([30, 90])
+                .range([h - padding, padding]);
+            svg.append("g")
+                .attr("transform", `translate(${padding}, 0)`)
+                .call(d3.axisLeft(yScale));
+
+            // color palette
+            var color = d3.scaleOrdinal()
+                .domain(["bottomQuintile", "topQuintile"])
+                .range(['#e41a1c', '#377eb8'])
+
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("x", w / 2)
+                .attr("y", h - 10)
+                .text("Year");
+
+            // Add Y axis title
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("transform", "rotate(-90)")
+                .attr("x", -h / 2)
+                .attr("y", 20)
+                .text("Percentage of population with perceived 'good' health status");
+
+            // Draw the bottom quintile line
+            svg.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", color("bottomQuintile"))
+                .attr("stroke-width", 3)
+                .attr("d", d3.line()
+                    .x(function (d) { return xScale(d.year); })
+                    .y(function (d) { return yScale(d.bottomQuintile); })
+                );
+
+            // Draw the top quintile line
+            svg.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", color("topQuintile"))
+                .attr("stroke-width", 3)
+                .attr("d", d3.line()
+                    .x(function (d) { return xScale(d.year); })
+                    .y(function (d) { return yScale(d.topQuintile); })
+                );
+
+            // Draw circles for every year for lower quintile
+            svg.selectAll(".dot-bottom")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "dot-bottom")
+                .attr("fill", color("bottomQuintile"))
+                .attr("cx", function (d) { return xScale(d.year); })
+                .attr("cy", function (d) { return yScale(d.bottomQuintile); })
+                .attr("r", 3.5);
+
+            // Draw circles for every year for upper quintile
+            svg.selectAll(".dot-top")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "dot-top")
+                .attr("fill", color("topQuintile"))
+                .attr("cx", function (d) { return xScale(d.year); })
+                .attr("cy", function (d) { return yScale(d.topQuintile); })
+                .attr("r", 3.5);
+
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Data Visualisation Exercise 1" />
+    <meta name="keywords" content="HTML, CSS, D3" />
+    <meta name="author" content="Jericho Black" />
+
+    <title>Task 2.4 Importing Data using a .csv file</title>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        /* Apply styles directly to the h1 element */
+        h1 {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Correctly styled heading -->
+    <h1>Scatter Plot of Lower Quintile against Upper Quintile for OECD Countries for 2021 </h1>
+
+    <p id="chart"></p>
+
+    <script>
+        // Set up the SVG
+        var w = 500;
+        var h = 500;
+        var padding = 60;
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+        // Read the data
+        d3.csv("country2021healthstatusvssocialprotection.csv", function (d) {
+            return {
+                bottomQuintile: d.BQ !== ".." ? +d.BQ : null,
+                topQuintile: d.TQ !== ".." ? +d.TQ : null,
+            };
+        }).then(function (data) {
+
+            console.table(data);
+
+            var xScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([padding, w - padding]);
+
+            var yScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([h - padding, padding]);
+
+            // Add X axis
+            svg.append("g")
+                .attr("transform", `translate(0, ${h - padding})`)
+                .call(d3.axisBottom(xScale));
+
+            // Add Y axis
+            svg.append("g")
+                .attr("transform", `translate(${padding}, 0)`)
+                .call(d3.axisLeft(yScale));
+
+            // Add X axis title
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("x", w / 2)
+                .attr("y", h - 10)
+                .text("Bottom Quintile");
+
+            // Add Y axis title
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("transform", "rotate(-90)")
+                .attr("x", -h / 2)
+                .attr("y", 20)
+                .text("Top Quintile");
+
+            svg.append("line")
+                .attr("x1", padding)
+                .attr("y1", h - padding)
+                .attr("x2", w - padding)
+                .attr("y2", padding)
+                .style("stroke", "black")
+                .style("stroke-width", 2)
+                .style("stroke-dasharray", "5,5");
+
+            svg.selectAll("circle")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("cx", function (d) { return xScale(d.bottomQuintile); })
+                .attr("cy", function (d) { return yScale(d.topQuintile); })
+                .attr("r", 3)
+                .style("fill", "red");
+
+        });
+
+    </script>
+
+</body>
+
+</html>
