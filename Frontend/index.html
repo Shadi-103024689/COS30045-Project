@@ -1,11 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJS Visualisation</title>
+  <link rel="icon" type="image/x-icon" href="assets/icon.png">
+
+  <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file for styling -->
 </head>
 <body>
-    
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="assets/logo.png" alt="AJS Visualisation">
+      </div>
+      <nav>
+        <ul><center>
+          <li><a href="#visualisation1">Visualisation 1</a></li>
+          <li><a href="#visualisation2">Visualisation 2</a></li>
+          <li><a href="#visualisation3">Visualisation 3</a></li>
+          <li><a href="#visualisation4">Visualisation 4</a></li>
+        </ul></center>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Slideshow Section -->
+  <section id="home" class="slideshow">
+    <div class="container">
+      <div class="slide active">
+        <img src="assets/Arc.png" alt="Slide 1">
+        <div class="text">
+          <h1>Welcome to AJS Visualisation</h1>
+          <p>Your trusted partner in data visualisation solutions.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="assets/Rose.png" alt="Slide 2">
+        <div class="text">
+          <h1>About Us</h1>
+          <p>We are a team of university students passionate about data visualisation.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="assets/Stream.png" alt="Slide 3">
+        <div class="text">
+          <h1>Our Visualisations</h1>
+          <p>Explore our stunning visualisations created using D3.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JavaScript for Slideshow -->
+  <script src="script.js"></script> <!-- Link to your JavaScript file -->
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <div class="copyright">
+        <p>&copy; 2024 AJS Visualisation. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
