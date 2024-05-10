@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Data Visualisation Exercise 1" />
+    <meta name="keywords" content="HTML, CSS, D3" />
+    <meta name="author" content="Jericho Black" />
+
+    <title></title>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .buttons-container {
+            margin-bottom: 30px;
+        }
+
+        svg {
+            display: block;
+            margin: auto;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .continent {
+            background-color: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px;
+            width: 400px;
+        }
+
+        .continent h2 {
+            margin-top: 0;
+        }
+
+        .continent button {
+            margin: 5px;
+            padding: 8px 16px;
+            background-color: #32c6b5;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .continent button:hover {
+            background-color: #27a79c;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Line Graph of Health Status Improvement Across Years</h1>
+
+    <p id="chart"></p>
+
+    <div id="buttons-container" class="buttons-container">
+        <!-- European Countries-->
+        <div class="continent">
+            <h2>Europe</h2>
+            <button onclick="updateChart('Austria')">Austria</button>
+            <button onclick="updateChart('Belgium')">Belgium</button>
+            <button onclick="updateChart('Czechia')">Czechia</button>
+            <button onclick="updateChart('Estonia')">Estonia</button>
+            <button onclick="updateChart('Finland')">Finland</button>
+            <button onclick="updateChart('France')">France</button>
+            <button onclick="updateChart('Germany')">Germany</button>
+            <button onclick="updateChart('Greece')">Greece</button>
+            <button onclick="updateChart('Hungary')">Hungary</button>
+            <button onclick="updateChart('Iceland')">Iceland</button>
+            <button onclick="updateChart('Israel')">Israel</button>
+            <button onclick="updateChart('Italy')">Italy</button>
+            <button onclick="updateChart('Latvia')">Latvia</button>
+            <button onclick="updateChart('Lithuania')">Lithuania</button>
+            <button onclick="updateChart('Luxembourg')">Luxembourg</button>
+            <button onclick="updateChart('Netherlands')">Netherlands</button>
+            <button onclick="updateChart('Norway')">Norway</button>
+            <button onclick="updateChart('Poland')">Poland</button>
+            <button onclick="updateChart('Portugal')">Portugal</button>
+            <button onclick="updateChart('Slovak Republic')">Slovak Republic</button>
+            <button onclick="updateChart('Slovenia')">Slovenia</button>
+            <button onclick="updateChart('Spain')">Spain</button>
+            <button onclick="updateChart('Sweden')">Sweden</button>
+            <button onclick="updateChart('Switzerland')">Switzerland</button>
+            <button onclick="updateChart('Turkiye')">Turkiye</button>
+            <button onclick="updateChart('United Kingdom')">United Kingdom</button>
+        </div>
+
+        <!-- North American Countries-->
+        <div class="continent">
+            <h2>North America</h2>
+            <button onclick="updateChart('Canada')">Canada</button>
+            <button onclick="updateChart('United States')">United States</button>
+        </div>
+
+        <!-- Oceania Countries -->
+        <div class="continent">
+            <h2>Oceania</h2>
+            <button onclick="updateChart('New Zealand')">New Zealand</button>
+        </div>
+    </div>
+</body>
+
+
+<script>
+
+    // set the dimensions and margins of the graph
+    var w = 500;
+    var h = 500;
+    var padding = 60;
+
+    var svg = d3.select("body")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+    function updateChart(country) {
+        d3.csv("HealthStatusOECD.csv", function (d) {
+            return {
+                year: +d.Year,
+                bottomQuintile: d[country + "BQ"] !== ".." ? +d[country + "BQ"] : null,
+                topQuintile: d[country + "TQ"] !== ".." ? +d[country + "TQ"] : null,
+            };
+        }).then(function (data) {
+            // Remove existing lines and circles
+            svg.selectAll("path").remove();
+            svg.selectAll("circle").remove();
+
+            console.log(data)
+
+            // Add new lines and circles based on the selected country's data
+            // Add X axis
+            var xScale = d3.scaleLinear()
+                .domain(d3.extent(data, function (d) { return d.year; }))
+                .range([padding, w - padding]);
+            svg.append("g")
+                .attr("transform", `translate(0, ${h - padding})`)
+                .call(d3.axisBottom(xScale).ticks(5));
+
+            // Add Y axis
+            var yScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([h - padding, padding]);
+            svg.append("g")
+                .attr("transform", `translate(${padding}, 0)`)
+                .call(d3.axisLeft(yScale));
+
+            var color = d3.scaleOrdinal()
+                .domain(["bottomQuintile", "topQuintile"])
+                .range(['#e41a1c', '#377eb8'])
+
+            svg.selectAll(".dot-bottom")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "dot-bottom")
+                .attr("fill", color("bottomQuintile"))
+                .attr("cx", function (d) { return xScale(d.year); })
+                .attr("cy", function (d) { return yScale(d.bottomQuintile); })
+                .attr("r", 6)
+                .on("mouseover", function (event, d) {
+                    var xPosition = parseFloat(d3.select(this).attr("cx"));
+                    var yPosition = parseFloat(d3.select(this).attr("cy"));
+
+                    svg.append("text")
+                        .attr("id", "tooltip")
+                        .attr("x", xPosition + 5)
+                        .attr("y", yPosition - 10)
+                        .text("Year: " + d.year + ", " + d.bottomQuintile + "%")
+                        .attr("font-family", "Arial")
+                        .attr("font-size", "12px")
+                        .attr("fill", "black");
+
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .attr("fill", "orange");
+                })
+                .on("mouseout", function (d) {
+                    d3.select("#tooltip").remove();
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .attr("fill", color("bottomQuintile"));
+                });
+
+            // Draw circles for every year for upper quintile
+            svg.selectAll(".dot-top")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "dot-top")
+                .attr("fill", color("topQuintile"))
+                .attr("cx", function (d) { return xScale(d.year); })
+                .attr("cy", function (d) { return yScale(d.topQuintile); })
+                .attr("r", 6)
+                .on("mouseover", function (event, d) {
+                    var xPosition = parseFloat(d3.select(this).attr("cx"));
+                    var yPosition = parseFloat(d3.select(this).attr("cy"));
+
+                    svg.append("text")
+                        .attr("id", "tooltip")
+                        .attr("x", xPosition + 5)
+                        .attr("y", yPosition - 10)
+                        .text("Year: " + d.year + ", " + d.topQuintile + "%")
+                        .attr("font-family", "Arial")
+                        .attr("font-size", "12px")
+                        .attr("fill", "black");
+
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .attr("fill", "orange");
+                })
+                .on("mouseout", function (d) {
+                    d3.select("#tooltip").remove();
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .attr("fill", color("topQuintile"));
+                });
+
+
+            // Draw the bottom quintile line
+            svg.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", color("bottomQuintile"))
+                .attr("stroke-width", 5)
+                .attr("d", d3.line()
+                    .x(function (d) { return xScale(d.year); })
+                    .y(function (d) { return yScale(d.bottomQuintile); })
+                );
+
+            // Draw the top quintile line
+            svg.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", color("topQuintile"))
+                .attr("stroke-width", 5)
+                .attr("d", d3.line()
+                    .x(function (d) { return xScale(d.year); })
+                    .y(function (d) { return yScale(d.topQuintile); })
+                );
+
+
+            // Filter out null values
+            var filteredData = data.filter(function (d) {
+                return d.bottomQuintile !== null && d.topQuintile !== null;
+            });
+
+            // Filter out null values so they do not appear
+            svg.append("path")
+                .datum(filteredData)
+                .attr("fill", "none")
+                .attr("stroke", color("bottomQuintile"))
+                .attr("stroke-width", 3)
+                .attr("d", d3.line()
+                    .defined(function (d) { return d.bottomQuintile !== null; })
+                    .x(function (d) { return xScale(d.year); })
+                    .y(function (d) { return yScale(d.bottomQuintile); })
+                );
+
+            // Draw the top quintile line
+            svg.append("path")
+                .datum(filteredData)
+                .attr("fill", "none")
+                .attr("stroke", color("topQuintile"))
+                .attr("stroke-width", 3)
+                .attr("d", d3.line()
+                    .defined(function (d) { return d.topQuintile !== null; })
+                    .x(function (d) { return xScale(d.year); })
+                    .y(function (d) { return yScale(d.topQuintile); })
+                );
+
+            // Filter out null values so they do not appear
+            svg.selectAll(".dot-bottom")
+                .data(filteredData)
+                .enter()
+                .append("circle")
+                .attr("class", "dot-bottom")
+                .attr("fill", color("bottomQuintile"))
+                .attr("cx", function (d) { return xScale(d.year); })
+                .attr("cy", function (d) { return yScale(d.bottomQuintile); })
+                .attr("r", 0);
+
+            // Filter out null values so they do not appear
+            svg.selectAll(".dot-top")
+                .data(filteredData)
+                .enter()
+                .append("circle")
+                .attr("class", "dot-top")
+                .attr("fill", color("topQuintile"))
+                .attr("cx", function (d) { return xScale(d.year); })
+                .attr("cy", function (d) { return yScale(d.topQuintile); })
+                .attr("r", 0);
+
+            var legend = svg.append("g")
+                .attr("class", "legend")
+                .attr("transform", "translate(" + (w - 100) + "," + 20 + ")");
+
+            legend.selectAll('rect')
+                .data(["topQuintile", "bottomQuintile"])
+                .enter()
+                .append("rect")
+                .attr("x", 0)
+                .attr("y", function (d, i) { return i * 20; })
+                .attr("width", 10)
+                .attr("height", 10)
+                .style("fill", color);
+
+            legend.selectAll('text')
+                .data(["Top Quintile", "Bottom Quintile"])
+                .enter()
+                .append("text")
+                .attr("x", 15)
+                .attr("y", function (d, i) { return i * 20 + 9; })
+                .text(function (d) { return d; })
+                .attr("font-size", "12px")
+                .attr("alignment-baseline", "middle"); 
+        });
+    }
+
+</script>
+
+</body>
+
+</html>
