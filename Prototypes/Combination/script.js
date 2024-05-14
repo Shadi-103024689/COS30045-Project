@@ -77,14 +77,19 @@ d3.csv("SocialProtection.csv").then(function(data){
             
         })
         .on("mouseover", function(d){
-            d3.selectAll(".country")
-            .transition()
-            .duration(200)
-            .style("opacity", .5)
-            d3.select(this)
-            .transition()
-            .duration(200)
-            .style("opacity", 1)
+            var value = d3.select(this).attr("data-value")
+            if (value){
+                d3.selectAll(".country")
+                .transition()
+                .duration(200)
+                .style("opacity", .5)
+                d3.select(this)
+                .attr("cursor", "pointer")
+                .transition()
+                .duration(200)
+                .style("opacity", 1)
+            }
+        
         })
         .on("mouseout", function(d){
             d3.selectAll(".country")
