@@ -54,5 +54,28 @@ d3.csv("SocialProtection.csv").then(function(data){
                     return "#black"
                 }
         })
+        .attr("class", function(d){ return "country"})
+        .style("opacity", .8)
+        .style("stroke", "transparent")
+        .on("mouseover", function(d){
+            d3.selectAll(".country")
+            .transition()
+            .duration(200)
+            .style("opacity", .5)
+            d3.select(this)
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+        })
+        .on("mouseout", function(d){
+            d3.selectAll(".country")
+            .transition()
+            .duration(200)
+            .style("opacity", .8)
+            d3.select(this)
+            .transition()
+            .duration(200)
+            .style("stroke", "transparent")
+        })
     })
 })
