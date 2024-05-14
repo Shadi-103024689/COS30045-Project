@@ -75,7 +75,8 @@ d3.csv("SocialProtection.csv").then(function(data){
             d3.select(this)
             .transition()
             .duration(200)
-            .style("stroke", "transparent")
+            .style("opacity", .8)
+
         })
     })
 })
