@@ -1,0 +1,73 @@
+html, body {
+    margin: 0px;
+}
+.gridContainer{
+    background-color: #eee;
+    padding: 20px;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.gridContainer > div {
+    background-color: #ccc;
+    border: 1px solid #777
+}
+
+.sideBar{
+    grid-row: 1 /span 2;
+    grid-column: 1;
+
+}
+
+.choroContainer {
+    grid-column: 2 /span 3;
+    grid-row: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.lineContainer {
+    grid-column: 2 / span 3;
+    grid-row: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+}
+
+.continent{
+    background-color: #777;
+    border-radius: 8px;
+    padding: 10px
+}
+.continent > h2 {
+    margin-top: 0px;
+}
+
+.continent > button {
+    margin: 5px;
+    padding: 8px 16px;
+    background-color: #ccc;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.continent > button:hover {
+    background-color: #eee;
+}
+
+
