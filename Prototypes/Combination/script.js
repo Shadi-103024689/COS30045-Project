@@ -85,7 +85,9 @@ d3.csv("SocialProtection.csv").then(function (data) {
       .on("click", function (d) {
         var name = d3.select(this).attr("data-name");
         var value = d3.select(this).attr("data-value");
-
+        if (name == "Chile" || name == "Costa Rica") {
+          return;
+        }
         if (value) {
           updateChart(name);
         }
