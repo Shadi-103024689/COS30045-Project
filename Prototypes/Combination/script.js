@@ -9,6 +9,30 @@ buttons.forEach((button) => {
   });
 });
 
+var tool_tip = d3
+  .select(".choroContainer")
+  .append("div")
+  .style("position", "absolute")
+  .style("visibility", "hidden")
+  .style("background-color", "black")
+  .style("color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px");
+
+function mouseOver(country, x, y) {
+  tool_tip
+    .style("visibility", "visible")
+    .html(`<p> ${country}</p>`)
+    .style("top", `${y}px`)
+    .style("left", `${x}px`);
+}
+
+function mouseOut() {
+  tool_tip.style("visibility", "hidden");
+}
+
 function updateHeading(country) {
   fillerHeading.classList.remove("fillerHeading");
   fillerHeading.classList.add("hiding");
@@ -107,6 +131,10 @@ d3.csv("SocialProtection.csv").then(function (data) {
       })
       .on("mouseover", function (d) {
         var value = d3.select(this).attr("data-value");
+        var name = d3.select(this).attr("data-name");
+        var x = d.x;
+        var y = d.y;
+
         if (value) {
           d3.selectAll(".country")
             .transition()
@@ -117,6 +145,8 @@ d3.csv("SocialProtection.csv").then(function (data) {
             .transition()
             .duration(200)
             .style("opacity", 1);
+
+          mouseOver(name, x, y);
         }
       })
       .on("mouseout", function (d) {
@@ -125,6 +155,8 @@ d3.csv("SocialProtection.csv").then(function (data) {
           .duration(200)
           .style("opacity", 0.8);
         d3.select(this).transition().duration(200).style("opacity", 0.8);
+
+        mouseOut();
       });
   });
 });
