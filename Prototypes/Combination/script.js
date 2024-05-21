@@ -1,10 +1,22 @@
 let buttons = document.querySelectorAll(".country");
+let countryName = document.querySelector(".countryName");
+let fillerHeading = document.querySelector(".fillerHeading");
+let lineHeading = document.querySelector("#lineHeading");
 buttons.forEach((button) => {
   button.addEventListener("click", function () {
     updateChart(button.textContent);
+    updateHeading(button.textContent);
   });
 });
 
+function updateHeading(country) {
+  fillerHeading.classList.remove("fillerHeading");
+  fillerHeading.classList.add("hiding");
+
+  lineHeading.classList.remove("hiding");
+  lineHeading.classList.add("lineHeading");
+  countryName.textContent = country;
+}
 w = 942.48;
 h = 650;
 
@@ -90,6 +102,7 @@ d3.csv("SocialProtection.csv").then(function (data) {
         }
         if (value) {
           updateChart(name);
+          updateHeading(name);
         }
       })
       .on("mouseover", function (d) {
@@ -117,8 +130,8 @@ d3.csv("SocialProtection.csv").then(function (data) {
 });
 
 // set the dimensions and margins of the graph
-var lw = 500;
-var lh = 500;
+var lw = 425;
+var lh = 425;
 var padding = 60;
 
 var lsvg = d3
