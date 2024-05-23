@@ -27,7 +27,10 @@ function mouseOver(data, xy) {
   country = data.attr("data-name");
   tool_tip
     .style("visibility", "visible")
-    .html(`<p> ${country}</p>`)
+    .html(
+      `<h3>Population Wellness of ${country} (2022)</h3>
+            <p>High vs Low Income</p>`
+    )
     .style("top", `${xy[1]}px`)
     .style("left", `${xy[0]}px`);
 
@@ -73,7 +76,7 @@ function barChart(country) {
 
         ty = d3
           .scaleBand()
-          .range([h - 20, 0])
+          .range([th - 20, 0])
           .padding(0.1)
           .domain(["Low Income", "High Income"]);
 

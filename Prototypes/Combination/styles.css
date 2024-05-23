@@ -89,3 +89,7 @@ h2 {
 .lineHeading > h3 {
   margin: 5px;
 }
+
+.domain {
+  stroke-opacity: 0%;
+}
