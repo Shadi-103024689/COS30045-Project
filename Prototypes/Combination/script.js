@@ -2,6 +2,7 @@ let buttons = document.querySelectorAll(".country");
 let countryName = document.querySelector(".countryName");
 let fillerHeading = document.querySelector(".fillerHeading");
 let lineHeading = document.querySelector("#lineHeading");
+
 buttons.forEach((button) => {
   button.addEventListener("click", function () {
     updateChart(button.textContent);
@@ -16,20 +17,21 @@ var tool_tip = d3
   .style("position", "absolute")
   .style("visibility", "hidden")
   .style("background-color", "white")
-  .style("color", "white")
+  .style("color", "black")
   .style("border", "solid")
   .style("border-width", "1px")
   .style("border-radius", "5px")
   .style("padding", "10px");
 
 function mouseOver(data, xy) {
+  country = data.attr("data-name");
   tool_tip
     .style("visibility", "visible")
-    .html(`<p> ${data.attr("data-name")}</p>`)
+    .html(`<p> ${country}</p>`)
     .style("top", `${xy[1]}px`)
     .style("left", `${xy[0]}px`);
 
-  barChart();
+  barChart(country);
 }
 
 function mouseOut() {
@@ -45,62 +47,76 @@ function updateHeading(country) {
   countryName.textContent = country;
 }
 
-function barChart() {
-  tw = 300;
-  th = 100;
-  var tsvg = d3
-    .select(".tooltip")
-    .append("svg")
-    .attr("width", tw)
-    .attr("height", th);
-  item = { topQ: 93, bottomQ: 84.1 };
-  const data = Object.entries(item).map(([key, value]) => ({
-    key: key,
-    value: value,
-  }));
-  ty = d3
-    .scaleBand()
-    .range([h - 20, 0])
-    .padding(0.1)
-    .domain(["Low Income", "High Income"]);
+function barChart(country) {
+  d3.csv("2022HealthStatus.csv", function (data) {
+    return {
+      country: data.country,
+      topQ: +data.topQ,
+      bottomQ: +data.bottomQ,
+    };
+  }).then(function (d) {
+    d.forEach((item) => {
+      if (item.country === country) {
+        values = { topQ: item.topQ, bottomQ: item.bottomQ };
+        const data = Object.entries(values).map(([key, value]) => ({
+          key: key,
+          value: value,
+        }));
+        console.log(data);
+        tw = 300;
+        th = 100;
+        var tsvg = d3
+          .select(".tooltip")
+          .append("svg")
+          .attr("width", tw)
+          .attr("height", th);
 
-  toolAxis = d3.axisLeft(ty).tickSize(0);
-  tsvg.append("g").attr("transform", "translate(60,0)").call(toolAxis);
-  tsvg
-    .selectAll("rect")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("transform", "translate(60.5, 0)")
-    .attr("fill", "steelblue")
-    .attr("y", function (d, i) {
-      return i * (th / data.length);
-    })
-    .attr("width", 0)
-    .attr("height", 30)
-    .transition()
-    .duration(1000)
-    .attr("width", function (d) {
-      return d.value * 1.5;
-    });
+        ty = d3
+          .scaleBand()
+          .range([h - 20, 0])
+          .padding(0.1)
+          .domain(["Low Income", "High Income"]);
 
-  tsvg
-    .selectAll(".label")
-    .data(data)
-    .enter()
-    .append("text")
-    .text(function (d) {
-      return d.value + "%";
-    })
-    .attr("x", 60)
-    .attr("y", function (d, i) {
-      return i * (th / data.length) + 20;
-    })
-    .transition()
-    .duration(1000)
-    .attr("x", function (d) {
-      return d.value * 1.5 + 65;
+        toolAxis = d3.axisLeft(ty).tickSize(0);
+        tsvg.append("g").attr("transform", "translate(60,0)").call(toolAxis);
+        tsvg
+          .selectAll("rect")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("transform", "translate(60.5, 0)")
+          .attr("fill", "steelblue")
+          .attr("y", function (d, i) {
+            return i * (th / data.length);
+          })
+          .attr("width", 0)
+          .attr("height", 30)
+          .transition()
+          .duration(1000)
+          .attr("width", function (d) {
+            return d.value * 1.5;
+          });
+
+        tsvg
+          .selectAll(".label")
+          .data(data)
+          .enter()
+          .append("text")
+          .text(function (d) {
+            return d.value + "%";
+          })
+          .attr("x", 60)
+          .attr("y", function (d, i) {
+            return i * (th / data.length) + 20;
+          })
+          .transition()
+          .duration(1000)
+          .attr("x", function (d) {
+            return d.value * 1.5 + 65;
+          });
+      }
     });
+  });
 }
 w = 942.48;
 h = 650;
