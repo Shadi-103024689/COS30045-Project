@@ -12,21 +12,24 @@ buttons.forEach((button) => {
 var tool_tip = d3
   .select(".choroContainer")
   .append("div")
+  .attr("class", "tooltip")
   .style("position", "absolute")
   .style("visibility", "hidden")
-  .style("background-color", "black")
+  .style("background-color", "white")
   .style("color", "white")
   .style("border", "solid")
   .style("border-width", "1px")
   .style("border-radius", "5px")
   .style("padding", "10px");
 
-function mouseOver(country, x, y) {
+function mouseOver(data, xy) {
   tool_tip
     .style("visibility", "visible")
-    .html(`<p> ${country}</p>`)
-    .style("top", `${y}px`)
-    .style("left", `${x}px`);
+    .html(`<p> ${data.attr("data-name")}</p>`)
+    .style("top", `${xy[1]}px`)
+    .style("left", `${xy[0]}px`);
+
+  barChart();
 }
 
 function mouseOut() {
@@ -40,6 +43,64 @@ function updateHeading(country) {
   lineHeading.classList.remove("hiding");
   lineHeading.classList.add("lineHeading");
   countryName.textContent = country;
+}
+
+function barChart() {
+  tw = 300;
+  th = 100;
+  var tsvg = d3
+    .select(".tooltip")
+    .append("svg")
+    .attr("width", tw)
+    .attr("height", th);
+  item = { topQ: 93, bottomQ: 84.1 };
+  const data = Object.entries(item).map(([key, value]) => ({
+    key: key,
+    value: value,
+  }));
+  ty = d3
+    .scaleBand()
+    .range([h - 20, 0])
+    .padding(0.1)
+    .domain(["Low Income", "High Income"]);
+
+  toolAxis = d3.axisLeft(ty).tickSize(0);
+  tsvg.append("g").attr("transform", "translate(60,0)").call(toolAxis);
+  tsvg
+    .selectAll("rect")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("transform", "translate(60.5, 0)")
+    .attr("fill", "steelblue")
+    .attr("y", function (d, i) {
+      return i * (th / data.length);
+    })
+    .attr("width", 0)
+    .attr("height", 30)
+    .transition()
+    .duration(1000)
+    .attr("width", function (d) {
+      return d.value * 1.5;
+    });
+
+  tsvg
+    .selectAll(".label")
+    .data(data)
+    .enter()
+    .append("text")
+    .text(function (d) {
+      return d.value + "%";
+    })
+    .attr("x", 60)
+    .attr("y", function (d, i) {
+      return i * (th / data.length) + 20;
+    })
+    .transition()
+    .duration(1000)
+    .attr("x", function (d) {
+      return d.value * 1.5 + 65;
+    });
 }
 w = 942.48;
 h = 650;
@@ -130,10 +191,9 @@ d3.csv("SocialProtection.csv").then(function (data) {
         }
       })
       .on("mouseover", function (d) {
-        var value = d3.select(this).attr("data-value");
-        var name = d3.select(this).attr("data-name");
-        var x = d.x;
-        var y = d.y;
+        item = d3.select(this);
+        var value = item.attr("data-value");
+        var coords = [d.x, d.y];
 
         if (value) {
           d3.selectAll(".country")
@@ -146,7 +206,7 @@ d3.csv("SocialProtection.csv").then(function (data) {
             .duration(200)
             .style("opacity", 1);
 
-          mouseOver(name, x, y);
+          mouseOver(item, coords);
         }
       })
       .on("mouseout", function (d) {
