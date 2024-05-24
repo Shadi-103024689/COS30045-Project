@@ -34,7 +34,6 @@ function mouseOver(data, xy) {
     .style("visibility", "visible")
     .html(
       `<h3>Population Wellness of ${country} (2022)</h3>
-      <p>Social Health Coverage: ${value}%</p>
             <p>High vs Low Income</p>`
     )
     .style("top", `${xy[1]}px`)
@@ -73,7 +72,7 @@ function barChart(country) {
         }));
         console.log(data);
         tw = 300;
-        th = 100;
+        th = 85;
         var tsvg = d3
           .select(".tooltip")
           .append("svg")
@@ -123,6 +122,7 @@ function barChart(country) {
           .attr("x", function (d) {
             return d.value * 1.5 + 65;
           });
+        tool_tip.append("p").html(`Social Health Coverage: ${value}%`);
       }
     });
   });
