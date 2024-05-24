@@ -34,7 +34,7 @@ function mouseOver(data, xy) {
     .style("visibility", "visible")
     .html(
       `<h3>Population Wellness of ${country} (2022)</h3>
-            <p>High vs Low Income</p>`
+            <p class="toolSub">High vs Low Income</p>`
     )
     .style("top", `${xy[1]}px`)
     .style("left", `${xy[0]}px`);
@@ -73,6 +73,7 @@ function barChart(country) {
         console.log(data);
         tw = 300;
         th = 85;
+        var barColour = ["#b03832", "#f68d8b"];
         var tsvg = d3
           .select(".tooltip")
           .append("svg")
@@ -93,7 +94,9 @@ function barChart(country) {
           .enter()
           .append("rect")
           .attr("transform", "translate(60.5, 0)")
-          .attr("fill", "steelblue")
+          .attr("fill", function (d, i) {
+            return barColour[i];
+          })
           .attr("y", function (d, i) {
             return i * (th / data.length);
           })
@@ -133,11 +136,11 @@ h = 650;
 var colour = d3
   .scaleQuantize()
   .range([
-    "rgb(254,235,226)",
-    "rgb(251,180,185)",
-    "rgb(247,104,161)",
-    "rgb(197,27,138)",
-    "rgb(122,1,119)",
+    "rgb255,186,186)",
+    "rgb(255,123,123)",
+    "rgb(255,82,82)",
+    "rgb(255,0,0)",
+    "rgb(167,0,0)",
   ]);
 
 var projection = d3
