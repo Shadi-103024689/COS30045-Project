@@ -16,19 +16,25 @@ var tool_tip = d3
   .attr("class", "tooltip")
   .style("position", "absolute")
   .style("visibility", "hidden")
-  .style("background-color", "white")
+  .style("background", "rgba(255, 255, 255, 0.9);")
   .style("color", "black")
-  .style("border", "solid")
-  .style("border-width", "1px")
   .style("border-radius", "5px")
-  .style("padding", "10px");
+  .style("padding", "10px")
+  .on("mouseover", function (d) {
+    d3.select(this).style("visibility", "visible");
+  })
+  .on("mouseout", function () {
+    d3.select(this).style("visibility", "hidden");
+  });
 
 function mouseOver(data, xy) {
   country = data.attr("data-name");
+  value = data.attr("data-value");
   tool_tip
     .style("visibility", "visible")
     .html(
       `<h3>Population Wellness of ${country} (2022)</h3>
+      <p>Social Health Coverage: ${value}%</p>
             <p>High vs Low Income</p>`
     )
     .style("top", `${xy[1]}px`)
