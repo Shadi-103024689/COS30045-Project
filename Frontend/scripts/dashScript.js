@@ -3,6 +3,8 @@ let countryName = document.querySelector(".countryName");
 let fillerHeading = document.querySelector(".fillerHeading");
 let lineHeading = document.querySelector("#lineHeading");
 
+let noData = document.querySelector("#noInfo");
+
 buttons.forEach((button) => {
   button.addEventListener("click", function () {
     updateChart(button.textContent);
