@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJS Visualisation</title>
+  <link rel="icon" type="image/x-icon" href="assets/icon.png">
+  <link rel="stylesheet" href="styles.css"> 
+  <script src="https://d3js.org/d3.v7.min.js" defer></script>
+  <script src="https://d3js.org/d3-scale.v4.min.js" defer></script>
+  <script src="scripts/dashScript.js" defer></script>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="assets/logo.png" alt="AJS Visualisation">
+      </div>
+      <nav>
+        <ul><center>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="#visualisation1">Changes Over The Years</a></li>
+          <li><a href="#visualisation2">Lets Compare</a></li>
+          <li><a href="#visualisation3">Datasets</a></li>
+        </ul></center>
+      </nav>
+    </div>
+  </header>
+  <div class="gridContainer">
+    <div class="choroContainer">
+      <h2 class="choroHeading">
+        Social Health Coverage in OECD Countries, 2022 (or nearest year)
+      </h2>
+    </div>
+    <div class="lineContainer">
+      <h2 class="fillerHeading">Select a Country</h2>
+      <div id="lineHeading" class="hiding">
+        <h2>
+          Trends in the population wellness of
+          <span class="countryName"></span>
+        </h2>
+        <h3>Highest Income vs Lowest Income</h3>
+      </div>
+    </div>
+    <div class="sideBar">
+      <div class="buttons">
+        <div class="continent">
+          <h2>Europe</h2>
+          <button class="country">Austria</button>
+          <button class="country">Belgium</button>
+          <button class="country">Czechia</button>
+          <button class="country">Estonia</button>
+          <button class="country">Finland</button>
+          <button class="country">France</button>
+          <button class="country">Germany</button>
+          <button class="country">Greece</button>
+          <button class="country">Hungary</button>
+          <button class="country">Iceland</button>
+          <button class="country">Israel</button>
+          <button class="country">Italy</button>
+          <button class="country">Latvia</button>
+          <button class="country">Lithuania</button>
+          <button class="country">Luxembourg</button>
+          <button class="country">Netherlands</button>
+          <button class="country">Norway</button>
+          <button class="country">Poland</button>
+          <button class="country">Portugal</button>
+          <button class="country">Slovak Republic</button>
+          <button class="country">Slovenia</button>
+          <button class="country">Spain</button>
+          <button class="country">Sweden</button>
+          <button class="country">Switzerland</button>
+          <button class="country">Turkiye</button>
+          <button class="country">United Kingdom</button>
+        </div>
+        <div class="continent">
+          <h2>North America</h2>
+          <button class="country">Canada</button>
+          <button class="country">United States</button>
+        </div>
+        <div class="continent">
+          <h2>Oceania</h2>
+          <button class="country">New Zealand</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <div class="copyright">
+        <p>&copy; 2024 AJS Visualisation. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -8,6 +8,8 @@
 /* Body styles */
 body {
   font-family: Arial, sans-serif;
+  display: grid;
+  grid-template-rows: auto auto auto-;
 }
 
 /* Container styles */
@@ -20,7 +22,6 @@ body {
 header {
   background-color: black;
   padding: 20px 0;
-
 }
 
 .logo img {
@@ -79,4 +80,105 @@ footer {
 
 footer p {
   margin: 0;
+}
+
+/*------Dashboard Styling-------*/
+html,
+body {
+  margin: 0px;
+}
+.gridContainer {
+  background-color: #eee;
+  padding: 20px;
+  height: fit-content;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.gridContainer > div {
+  background-color: #ccc;
+  border: 1px solid #777;
+}
+
+.sideBar {
+  grid-row: 1 / span 2;
+  grid-column: 1;
+}
+
+.choroContainer {
+  grid-column: 2 / span 3;
+  grid-row: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lineContainer {
+  grid-column: 2 / span 3;
+  grid-row: 2;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+}
+
+.continent {
+  background-color: #777;
+  border-radius: 8px;
+  padding: 10px;
+}
+.continent > h2 {
+  margin-top: 0px;
+}
+
+.continent > button {
+  margin: 5px;
+  padding: 8px 16px;
+  background-color: #ccc;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.continent > button:hover {
+  background-color: #eee;
+}
+
+h2 {
+  color: #eee;
+}
+
+.hiding {
+  display: none;
+}
+.lineHeading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lineHeading > h2,
+.lineHeading > h3 {
+  margin: 5px;
+}
+
+.domain {
+  stroke-opacity: 0%;
+}
+
+.tooltip {
+  background: rgba(255, 255, 255, 0.9);
 }
