@@ -259,7 +259,7 @@ var lh = 425;
 var padding = 60;
 
 var lsvg = d3
-  .select(".lineContainer")
+  .select(".lineGraph")
   .append("svg")
   .attr("width", lw)
   .attr("height", lh)

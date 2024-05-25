@@ -131,11 +131,19 @@ body {
   grid-column: 2 / span 3;
   grid-row: 2;
   padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border-bottom-right-radius: 8px;
+}
+
+.lineGraph {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  border-bottom-right-radius: 8px;
+  justify-content: center;
+}
+.linePara {
+  background-color: inherit;
 }
 
 .buttons {
@@ -143,6 +151,7 @@ body {
   flex-direction: column;
   padding: 20px;
   gap: 20px;
+  justify-content: center;
 }
 
 .continent {
