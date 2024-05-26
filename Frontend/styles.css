@@ -146,6 +146,15 @@ body {
   background-color: inherit;
 }
 
+.lineParaInfo {
+  padding-top: 10px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .buttons {
   display: flex;
   flex-direction: column;
