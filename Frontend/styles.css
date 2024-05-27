@@ -130,9 +130,8 @@ body {
 .lineContainer {
   grid-column: 2 / span 3;
   grid-row: 2;
-  padding: 10px;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1.5fr;
   border-bottom-right-radius: 8px;
 }
 
@@ -141,14 +140,20 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-left: 1px solid #777;
 }
 .linePara {
-  background-color: inherit;
+  padding: 10px 30px;
+  border-right: 1px solid #777;
+}
+
+.linePara > h2 {
+  justify-self: normal;
 }
 
 .lineParaInfo {
   padding-top: 10px;
-  gap: 10px;
+  gap: 30px;
   display: flex;
   flex-direction: column;
   text-align: justify;
