@@ -253,6 +253,41 @@ d3.csv("../Datasets/dashboard/SocialProtection.csv").then(function (data) {
   });
 });
 
+var scale = svg
+  .append("g")
+  .attr("class", "choroLegend")
+  .attr("transform", "translate(" + (w - 100) + "," + 20 + ")");
+
+scale
+  .selectAll("rect")
+  .data([
+    "rgb(255,186,186)",
+    "rgb(255,123,123)",
+    "rgb(255,82,82)",
+    "rgb(255,0,0)",
+    "rgb(167,0,0)",
+  ])
+  .enter()
+  .append("rect")
+  .attr("x", function (d, i) {
+    return i * 20;
+  })
+  .attr("y", 0)
+  .attr("width", 10)
+  .attr("height", 10)
+  .style("fill", function (d) {
+    return d;
+  });
+
+scale
+  .append("text")
+  .attr("x", function (d) {
+    return 0;
+  })
+  .attr("y", 30)
+  .text("% scale (0 - 100)")
+  .attr("font-size", "12px");
+
 // set the dimensions and margins of the graph
 var lw = 425;
 var lh = 425;
