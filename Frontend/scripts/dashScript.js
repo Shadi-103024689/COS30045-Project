@@ -325,7 +325,7 @@ scale
   .attr("font-size", "12px");
 
 // set the dimensions and margins of the graph
-var lw = 500;
+var lw = 425;
 var lh = 425;
 var padding = 60;
 
