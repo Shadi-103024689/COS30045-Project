@@ -2,8 +2,8 @@ var color = d3.scaleOrdinal()
 .domain(["bottomQuintile", "topQuintile"])
 .range(["#32c6b5", "#ff7f0e"]);
 
-var height = 500;
-var width = 500;
+var height = 350;
+var width = 350;
 var padding = 60;
 
 function fetchData(country, callback) {
@@ -111,7 +111,7 @@ fetchData(country, function (data) {
             .attr("fill", color(quintile))
             .attr("cx", function (d) { return xScale(d.year); })
             .attr("cy", function (d) { return yScale(d[quintile]); })
-            .attr("r", 5)
+            .attr("r", 7)
             .on("mouseover", function (event, d) {
                 var xPosition = parseFloat(d3.select(this).attr("cx"));
                 var yPosition = parseFloat(d3.select(this).attr("cy"));
