@@ -117,11 +117,13 @@ function barChart(country) {
           .domain(["Low Income", "High Income"]);
 
         toolAxis = d3.axisLeft(ty).tickSize(0);
+
         tsvg
           .append("g")
           .attr("class", "hi")
           .attr("transform", "translate(60,0)")
           .call(toolAxis);
+
         tsvg
           .selectAll("rect")
           .data(data)
