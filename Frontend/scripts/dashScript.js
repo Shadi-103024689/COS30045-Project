@@ -100,13 +100,13 @@ function barChart(country) {
           key: key,
           value: value,
         }));
-        console.log(data);
         tw = 300;
         th = 85;
         var barColour = ["#b03832", "#f68d8b"];
         var tsvg = d3
           .select(".tooltip")
           .append("svg")
+          .attr("class", "tooltipSVG")
           .attr("width", tw)
           .attr("height", th);
 
@@ -117,7 +117,11 @@ function barChart(country) {
           .domain(["Low Income", "High Income"]);
 
         toolAxis = d3.axisLeft(ty).tickSize(0);
-        tsvg.append("g").attr("transform", "translate(60,0)").call(toolAxis);
+        tsvg
+          .append("g")
+          .attr("class", "hi")
+          .attr("transform", "translate(60,0)")
+          .call(toolAxis);
         tsvg
           .selectAll("rect")
           .data(data)
@@ -321,7 +325,7 @@ scale
   .attr("font-size", "12px");
 
 // set the dimensions and margins of the graph
-var lw = 425;
+var lw = 500;
 var lh = 425;
 var padding = 60;
 
@@ -355,8 +359,6 @@ function updateChart(country) {
     lsvg.selectAll("circle").remove();
     lsvg.selectAll("g").remove();
 
-    console.log(data);
-
     // Add new lines and circles based on the selected country's data
     // Add X axis
     var xScale = d3
@@ -385,7 +387,7 @@ function updateChart(country) {
     var color = d3
       .scaleOrdinal()
       .domain(["bottomQuintile", "topQuintile"])
-      .range(["#e41a1c", "#377eb8"]);
+      .range(["#f68d8b", "#b03832"]);
 
     lsvg
       .selectAll(".dot-bottom")
