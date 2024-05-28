@@ -86,7 +86,7 @@ function foundData() {
 }
 
 function barChart(country) {
-  d3.csv("../Datasets/dashboard/2022HealthStatus.csv", function (data) {
+  d3.csv("./Datasets/dashboard/2022HealthStatus.csv", function (data) {
     return {
       country: data.country,
       topQ: +data.topQ,
@@ -198,13 +198,11 @@ var svg = d3
     return "choroSVG";
   });
 
-d3.csv("../Datasets/dashboard/SocialProtection.csv").then(function (data) {
+d3.csv("./Datasets/dashboard/SocialProtection.csv").then(function (data) {
   //determine colour domain
   colour.domain([0, 100]);
 
-  d3.json("../Datasets/dashboard/worldCountries.geo.json").then(function (
-    json
-  ) {
+  d3.json("./Datasets/dashboard/worldCountries.geo.json").then(function (json) {
     for (var i = 0; i < data.length; i++) {
       var dataset = data[i].country;
       var dataValue = parseFloat(data[i].value);
@@ -349,7 +347,7 @@ function chartRemoval() {
 }
 
 function updateChart(country) {
-  d3.csv("../Datasets/dashboard/HealthStatusOECD.csv", function (d) {
+  d3.csv("./Datasets/dashboard/HealthStatusOECD.csv", function (d) {
     return {
       year: +d.Year,
       bottomQuintile: d[country + "BQ"] !== ".." ? +d[country + "BQ"] : null,
