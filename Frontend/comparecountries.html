@@ -1,76 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Data Visualisation Exercise 1" />
-    <meta name="keywords" content="HTML, CSS, D3" />
-    <meta name="author" content="Jericho Black" />
-    <title>Data Visualisation Exercise</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 30px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .dropdown-container {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-        }
-
-        .dropdown {
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .dropdown label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .dropdown input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 4px;
-            border: 2px solid #ddd;
-            background-color: #fff;
-        }
-
-        .chart-container {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        svg {
-            display: flex;
-            border-radius: 8px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJS Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="assets/icon.png">
+  <link rel="stylesheet" href="comparecountriesstyles.css"> 
+  <script src="https://d3js.org/d3.v7.min.js" defer></script>
+  <script src="https://d3js.org/d3-scale.v4.min.js" defer></script>
+  <script src="scripts/compareScript.js" defer></script>
 </head>
-
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="headerContainer">
+      <div class="logo">
+        <img src="assets/logo.png" alt="AJS Visualisation">
+      </div>
+      <nav>
+        <ul><center>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="#visualisation1">Changes Over The Years</a></li>
+          <li><a href="#visualisation2">Lets Compare</a></li>
+          <li><a href="#visualisation3">Datasets</a></li>
+        </ul></center>
+      </nav>
+    </div>
+</head>
 <body>
     <div class="container">
         <h1>Line Graph of Health Status Improvement Across Years</h1>
@@ -282,5 +239,12 @@
         }
     </script>
 </body>
+<footer>
+    <div class="container">
+      <div class="copyright">
+        <p>&copy; 2024 AJS Visualisation. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
 </html>
