@@ -3,7 +3,9 @@ let countryName = document.querySelector(".countryName");
 let fillerHeading = document.querySelector(".fillerHeading");
 let lineHeading = document.querySelector("#lineHeading");
 
-let noData = document.querySelector("#noInfo");
+let noInfoTitle = document.querySelector("#noInfo");
+
+let noDataValue = false;
 
 buttons.forEach((button) => {
   button.addEventListener("click", function () {
@@ -55,6 +57,32 @@ function updateHeading(country) {
   lineHeading.classList.remove("hiding");
   lineHeading.classList.add("lineHeading");
   countryName.textContent = country;
+}
+
+function noData() {
+  if (fillerHeading.classList.value == "fillerHeading") {
+    fillerHeading.classList.remove("fillerHeading");
+    fillerHeading.classList.add("hiding");
+  }
+
+  lineHeading.classList.remove("lineHeading");
+  lineHeading.classList.add("hiding");
+
+  noInfoTitle.classList.remove("hiding");
+  noInfoTitle.classList.add("noInfo");
+
+  chartRemoval();
+  noDataValue = true;
+}
+
+function foundData() {
+  lineHeading.classList.remove("hiding");
+  lineHeading.classList.add("lineHeading");
+
+  noInfoTitle.classList.remove("noInfo");
+  noInfoTitle.classList.add("hiding");
+
+  noDataValue = false;
 }
 
 function barChart(country) {
@@ -215,9 +243,13 @@ d3.csv("../Datasets/dashboard/SocialProtection.csv").then(function (data) {
         var name = d3.select(this).attr("data-name");
         var value = d3.select(this).attr("data-value");
         if (name == "Chile" || name == "Costa Rica" || name == "South Korea") {
+          noData();
           return;
         }
         if (value) {
+          if (noDataValue) {
+            foundData();
+          }
           updateChart(name);
           updateHeading(name);
         }
@@ -302,6 +334,14 @@ var lsvg = d3
     return "lineSVG";
   });
 
+function chartRemoval() {
+  lsvg.selectAll("path").remove();
+  lsvg.selectAll("circle").remove();
+  lsvg.selectAll("text").remove();
+  lsvg.selectAll("g").remove();
+  lsvg.selectAll("rect").remove();
+}
+
 function updateChart(country) {
   d3.csv("../Datasets/dashboard/HealthStatusOECD.csv", function (d) {
     return {
@@ -313,6 +353,7 @@ function updateChart(country) {
     // Remove existing lines and circles
     lsvg.selectAll("path").remove();
     lsvg.selectAll("circle").remove();
+    lsvg.selectAll("g").remove();
 
     console.log(data);
 
