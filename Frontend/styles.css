@@ -300,3 +300,49 @@ h2 {
   transform: translate(-50%, -50%);
   max-width: 200px;
 }
+
+.container-compare {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-container-compare1 {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.dropdown-container-compare2 {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.dropdown {
+  width: 100%;
+  max-width: 300px;
+}
+
+.dropdown label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.dropdown input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  background-color: #fff;
+}
+
+.chart-container-compare1 {
+  display: flex;
+  justify-content: space-between;
+}
