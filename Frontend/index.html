@@ -9,64 +9,84 @@
   <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file for styling -->
 </head>
 <body>
-  <div class="homeContainer">
   <!-- Header Section -->
   <header>
-    <div class="container">
+    <div class="headerContainer">
       <div class="logo">
         <img src="assets/logo.png" alt="AJS Visualisation">
       </div>
       <nav>
         <ul><center>
+          <li><a href="index.html">Home</a></li>
           <li><a href="dashboard.html">Dashboard</a></li>
           <li><a href="#visualisation1">Changes Over The Years</a></li>
           <li><a href="#visualisation2">Lets Compare</a></li>
           <li><a href="#visualisation3">Datasets</a></li>
-          
-          
         </ul></center>
       </nav>
     </div>
   </header>
-
-  <!-- Slideshow Section -->
-  <section id="home" class="slideshow">
-    <div class="container">
-      <div class="slide active">
-        <img src="assets/Arc.png" alt="Slide 1">
-        <div class="text">
-          <h1>Welcome to AJS Visualisation</h1>
-          <p>Your trusted partner in data visualisation solutions.</p>
-        </div>
+  <div class="hero">
+    <img src="assets/hero.jpg" alt="doctor">
+  </div>
+  <div class="projectTitle">
+    <h1>The Effect of Social Protection on Health</h1>
+  </div>
+  <div class="content">
+    <div class="row1">
+      <div class="infoContainer1">
+        <h2 class="contentHeadings">Some Background</h2>
+        <p class="homeInfo">
+          As advanced capitalist countries increasingly lean towards 
+          complete privatisation, there's been a significant surge in the cost of living.
+          This trend raises concerns about the potential negative 
+          effects of privatising healthcare on individuals with lower 
+          incomes, particularly as access to essential services may become increasingly 
+          unaffordable or limited for marginalized populations.
+        </p>
+        <p>
+          Additionally, the transition to privatisation could worsen the already present 
+          inequalities in healthcare access and outcomes, placing a disproportionate 
+          burden on marginalised communities that heavily depend on public healthcare 
+          services. In the absence of sufficient safeguards or provisions, privatisation 
+          may further widen the healthcare disparity between different socioeconomic groups, 
+          thereby compromising the fundamental principles of fairness and societal equality.
+        </p>
       </div>
-      <div class="slide">
-        <img src="assets/Rose.png" alt="Slide 2">
-        <div class="text">
-          <h1>About Us</h1>
-          <p>We are a team of university students passionate about data visualisation.</p>
-        </div>
-      </div>
-      <div class="slide">
-        <img src="assets/Stream.png" alt="Slide 3">
-        <div class="text">
-          <h1>Our Visualisations</h1>
-          <p>Explore our stunning visualisations created using D3.</p>
-        </div>
+      <div class="imageConatiner1">
+        <img src="assets/society.jpg" alt="society" class="society">
       </div>
     </div>
-  </section>
-
-  <!-- JavaScript for Slideshow -->
-  <script src="scripts/script.js"></script> <!-- Link to your JavaScript file -->
-
+    <div class="row2">
+      <div class="imageConatiner2">
+        <img src="assets/patient.jpg" alt="patient" class="patient">
+      </div>
+      <div class="infoContainer2">
+        <h2 class="contentHeadings">The Goal</h2>
+        <p class="homeInfo">
+          Our goal is to determine whether there is validity to the notion that a decrease
+           in socialised healthcare impacts citizens and the implications of privatisation 
+           on the healthcare industry. To achieve this, data regarding the health status of 
+           low-income earners across OECD nations will be collected and compared to that of 
+           high-income earners through a series of visualisations. 
+        </p>
+        <p>
+          Given that low-income earners 
+          are more reliant on publicly-funded healthcare systems, a conclusion can be drawn on 
+          whether low-income individuals in heavily privatised nations experience health-related 
+          repercussions.
+        </p>
+      </div>
+    </div>    
+  </div>
   <!-- Footer Section -->
-  <footer class="homeFooter">
+  <footer>
     <div class="container">
       <div class="copyright">
         <p>&copy; 2024 AJS Visualisation. All rights reserved.</p>
       </div>
     </div>
   </footer>
-</div>
 </body>
 </html>
+

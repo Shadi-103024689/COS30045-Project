@@ -8,8 +8,6 @@
 /* Body styles */
 body {
   font-family: Arial, sans-serif;
-  display: grid;
-  grid-template-rows: auto auto auto-;
 }
 
 /* Container styles */
@@ -18,14 +16,23 @@ body {
   margin: 0 auto;
 }
 
+.headerContainer {
+  display: flex;
+  align-items: center;
+}
+
 /* Header styles */
 header {
   background-color: black;
-  padding: 20px 0;
+  padding: 10px 125px;
 }
 
 .logo img {
   width: 200px;
+}
+
+nav {
+  margin-left: auto;
 }
 
 nav ul {
@@ -43,31 +50,94 @@ nav ul li a {
   font-size: 16px;
 }
 
-/* Your CSS styles for the slideshow */
-.slideshow {
-  position: relative;
-  overflow: hidden;
+nav ul li a:hover {
+  color: red;
 }
 
-.slide {
-  display: none;
+/*hero image*/
+
+.hero {
+  margin: 20px 150px;
 }
 
-.slide.active {
-  display: block;
+@keyframes fadeInUpText {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
 
-.slide img {
-  width: 100%;
+.projectTitle {
+  margin: 30px 150px 0px 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+h1 {
+  animation: 1.5s fadeInUpText;
+}
+
+/* content */
+.content {
+  margin: 50px 100px;
+  padding: 20px 50px;
+  height: fit-content;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 50px;
+}
+.content > div {
+  padding: 20px;
+}
+
+.row1 {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr;
+  grid-column-gap: 30px;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  grid-column-gap: 30px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.infoContainer1,
+.infoContainer2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 0 20px 0;
+  gap: 10px;
+}
+
+.contentHeadings {
   color: black;
+}
+
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(10%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.hero,
+.content {
+  animation: 1.5s fadeInUp;
 }
 
 /* Footer styles */
@@ -81,12 +151,6 @@ footer {
 
 footer p {
   margin: 0;
-}
-
-.homeFooter {
-  position: absolute;
-  left: 0;
-  bottom: 0;
 }
 
 /*------Dashboard Styling-------*/
@@ -220,4 +284,10 @@ h2 {
 
 .toolSub {
   margin-bottom: 8px;
+}
+
+.gridContainer > div > div,
+.gridContainer > div > h2,
+.gridContainer > div > svg {
+  animation: 1.5s fadeInUp;
 }
