@@ -58,6 +58,24 @@ nav ul li a:hover {
 
 .hero {
   margin: 20px 150px;
+  position: relative;
+}
+
+.overLay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 99%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overLay > h1 {
+  color: white;
+  font-size: 3rem;
 }
 
 @keyframes fadeInUpText {
@@ -84,7 +102,7 @@ h1 {
 
 /* content */
 .content {
-  margin: 50px 100px;
+  margin: 10px 100px;
   padding: 20px 50px;
   height: fit-content;
   display: grid;
@@ -189,6 +207,15 @@ body {
   align-items: center;
   justify-content: center;
   padding: 10px;
+}
+
+.choroHeading,
+.fillerHeading,
+#lineHeading > h2,
+#lineHeading > h3,
+.linePara > h2,
+.lineParaInfo {
+  color: #232b2b;
 }
 
 .lineContainer {
@@ -300,6 +327,7 @@ h2 {
   transform: translate(-50%, -50%);
   max-width: 200px;
 }
+/*------Lets Compare Styling------*/
 
 .container-compare {
   max-width: 1200px;
