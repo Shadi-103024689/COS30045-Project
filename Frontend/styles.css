@@ -310,13 +310,7 @@ h2 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.dropdown-container-compare1 {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 30px;
-}
-
-.dropdown-container-compare2 {
+.dropdown-container-compare {
   display: flex;
   justify-content: space-around;
   margin-bottom: 30px;
@@ -340,9 +334,4 @@ h2 {
   border-radius: 4px;
   border: 2px solid #ddd;
   background-color: #fff;
-}
-
-.chart-container-compare1 {
-  display: flex;
-  justify-content: space-between;
 }

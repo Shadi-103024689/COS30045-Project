@@ -1,6 +1,6 @@
 var color = d3.scaleOrdinal()
 .domain(["bottomQuintile", "topQuintile"])
-.range(["#32c6b5", "#ff7f0e"]);
+.range(["#b03832", "#f68d8b"]);
 
 var height = 500;
 var width = 500;
