@@ -2,12 +2,12 @@ var color = d3.scaleOrdinal()
 .domain(["bottomQuintile", "topQuintile"])
 .range(["#32c6b5", "#ff7f0e"]);
 
-var height = 350;
-var width = 350;
+var height = 500;
+var width = 500;
 var padding = 60;
 
 function fetchData(country, callback) {
-d3.csv("HealthStatusOECD.csv", function (d) {
+d3.csv("./Datasets/dashboard/HealthStatusOECD.csv", function (d) {
     return {
         year: +d.Year,
         bottomQuintile: d[country + "BQ"] !== ".." ? +d[country + "BQ"] : null,
