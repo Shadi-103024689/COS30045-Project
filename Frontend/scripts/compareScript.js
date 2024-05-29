@@ -1,9 +1,9 @@
 var color = d3.scaleOrdinal()
 .domain(["bottomQuintile", "topQuintile"])
-.range(["#b03832", "#f68d8b"]);
+.range(["#f68d8b", "#b03832"]);
 
-var height = 500;
-var width = 500;
+var height = 400;
+var width = 400;
 var padding = 60;
 
 function fetchData(country, callback) {

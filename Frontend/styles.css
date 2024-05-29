@@ -302,7 +302,7 @@ h2 {
 }
 
 .container-compare {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 20px auto;
   padding: 20px;
   background-color: #fff;
@@ -314,6 +314,20 @@ h2 {
   display: flex;
   justify-content: space-around;
   margin-bottom: 30px;
+}
+
+.chart-container-compare {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#chart1, #chart2 {
+  background-color: white; /* Ensure a white background for the SVG containers */
+  width: 500px;
+  height: 500px;
 }
 
 .dropdown {
