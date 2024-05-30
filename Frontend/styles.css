@@ -331,6 +331,7 @@ h2 {
 }
 /*------Lets Compare Styling------*/
 
+
 .container-compare {
   animation: 1.5s fadeInUpText;
   max-width: 1000px;
@@ -338,7 +339,13 @@ h2 {
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.description-box {
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
 }
 
 .dropdown-container-compare {
@@ -353,7 +360,7 @@ h2 {
   animation: 1.5s fadeInUpText;
   display: flex;
   justify-content: space-between;
-  background-color: #f9f9f9;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
 }
