@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJS Dashboard</title>
-  <link rel="icon" type="image/x-icon" href="assets/icon.png">
-  <link rel="stylesheet" href="styles.css"> 
-  <script src="https://d3js.org/d3.v7.min.js" defer></script>
-  <script src="https://d3js.org/d3-scale.v4.min.js" defer></script>
-  <script src="scripts/compareScript.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJS Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js" defer></script>
+    <script src="https://d3js.org/d3-scale.v4.min.js" defer></script>
+    <script src="scripts/compareScript.js" defer></script>
 </head>
+
 <body>
-  <!-- Header Section -->
-  <header>
-    <div class="headerContainer">
-      <div class="logo">
-        <img src="assets/logo.png" alt="AJS Visualisation">
-      </div>
-      <nav>
-        <ul><center>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="#visualisation1">Changes Over The Years</a></li>
-          <li><a href="comparecountries.html">Lets Compare</a></li>
-          <li><a href="#visualisation3">Datasets</a></li>
-        </ul></center>
-      </nav>
-    </div>
-</head>
-<body>
+    <!-- Header Section -->
+    <header>
+        <div class="headerContainer">
+            <div class="logo">
+                <img src="assets/logo.png" alt="AJS Visualisation">
+            </div>
+            <nav>
+                <ul>
+                    <center>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="#visualisation1">Changes Over The Years</a></li>
+                        <li><a href="comparecountries.html">Lets Compare</a></li>
+                        <li><a href="#visualisation3">Datasets</a></li>
+                </ul>
+                </center>
+            </nav>
+        </div>
+    </header>
     <div class="container-compare">
         <h1>Line Graph of Health Status Improvement Across Years</h1>
+        <div class="description-box">
+            <p>
+                This webpage allows you to visualize and compare the health status changes across years for
+                different countries. Select a country from the dropdown menu(s) to see the respective data visualized in a
+                line graph. Hover over the dots to show additional information about each year.
+            </p>
+        </div>
         <div class="dropdown-container-compare">
             <div class="dropdown">
                 <label for="country-select1">Select Country for Chart 1:</label>
@@ -79,14 +89,12 @@
             <div id="chart2"></div>
         </div>
     </div>
-
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2024 AJS Visualisation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
-<footer>
-    <div class="container">
-      <div class="copyright">
-        <p>&copy; 2024 AJS Visualisation. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
 </html>
