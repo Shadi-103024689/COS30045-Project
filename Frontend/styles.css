@@ -8,6 +8,7 @@
 /* Body styles */
 body {
   font-family: Arial, sans-serif;
+  background-color: white;
 }
 
 /* Container styles */
@@ -98,6 +99,7 @@ nav ul li a:hover {
 
 h1 {
   animation: 1.5s fadeInUpText;
+  margin: 20px;
 }
 
 /* content */
@@ -330,6 +332,7 @@ h2 {
 /*------Lets Compare Styling------*/
 
 .container-compare {
+  animation: 1.5s fadeInUpText;
   max-width: 1000px;
   margin: 20px auto;
   padding: 20px;
@@ -339,12 +342,15 @@ h2 {
 }
 
 .dropdown-container-compare {
+  animation: 1.5s fadeInUpText;
   display: flex;
+  margin: 30px;
   justify-content: space-around;
   margin-bottom: 30px;
 }
 
 .chart-container-compare {
+  animation: 1.5s fadeInUpText;
   display: flex;
   justify-content: space-between;
   background-color: #f9f9f9;
@@ -353,6 +359,7 @@ h2 {
 }
 
 #chart1, #chart2 {
+  animation: 1.5s fadeInUpText;
   background-color: white; /* Ensure a white background for the SVG containers */
   width: 500px;
   height: 500px;
