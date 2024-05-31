@@ -56,6 +56,184 @@
           This time series starts from 2010 and ends in 2022, allowing viewers to observe trends and changes in health
           conditions over time in these populations.</p>
         <div id="chart"></div> <!-- Container to display the chart -->
+        <script src="https://d3js.org/d3.v7.min.js"></script> <!-- D3.js -->
+        <script>
+          const margin = { top: 50, right: 220, bottom: 100, left: 100 };
+          const width = 1600 - margin.left - margin.right;
+          const height = 800 - margin.top - margin.bottom;
+
+          // Append SVG to the chart div
+          const svg = d3.select("#chart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+          // Define color mapping for each country
+          const countryColors = {
+            "Austria": "#000000",
+            "Belgium": "#080000",
+            "Canada": "#100000",
+            "Czechia": "#180000",
+            "Denmark": "#200000",
+            "Estonia": "#280000",
+            "Finland": "#300000",
+            "France": "#380000",
+            "Germany": "#400000",
+            "Greece": "#480000",
+            "Hungary": "#500000",
+            "Iceland": "#580000",
+            "Ireland": "#600000",
+            "Israel": "#680000",
+            "Italy": "#700000",
+            "Latvia": "#780000",
+            "Lithuania": "#800000",
+            "Luxembourg": "#880000",
+            "Netherlands": "#900000",
+            "New Zealand": "#980000",
+            "Norway": "#A00000",
+            "Poland": "#A80000",
+            "Portugal": "#B00000",
+            "Slovak Republic": "#B80000",
+            "Slovenia": "#C00000",
+            "Spain": "#C80000",
+            "Sweden": "#D00000",
+            "Switzerland": "#D80000",
+            "Turkiye": "#E00000",
+            "United Kingdom": "#E80000",
+            "United States": "#F00000"
+          };
+
+          // Load CSV data
+          d3.csv("./Datasets/changes/low.csv").then(function (data) {
+            // Extract years from the data
+            const years = data.columns.slice(1);
+
+            // Set initial year index
+            let yearIndex = 0;
+
+            // Define x scale
+            const xScale = d3.scaleLinear()
+              .domain([0, 100])
+              .range([0, width]);
+
+            // Define y scale
+            const yScale = d3.scaleBand()
+              .domain(data.map(d => d.Country))
+              .range([height, 0])
+              .padding(0.1);
+
+            // Draw x axis with percentage format
+            svg.append("g")
+              .attr("class", "x-axis")
+              .attr("transform", `translate(0,${height})`)
+              .call(d3.axisBottom(xScale).tickFormat(d => d + "%"));
+
+            // Draw y axis
+            svg.append("g")
+              .attr("class", "y-axis")
+              .call(d3.axisLeft(yScale));
+
+            // Add x axis label
+            svg.append("text")
+              .attr("class", "x-label")
+              .attr("x", width / 2)
+              .attr("y", height + margin.bottom - 40)
+              .attr("text-anchor", "middle")
+              .text("Good/very good health, total aged 15+, Lowest Income (% of population)")
+              .attr("font-weight", "bold")
+              .attr("font-size", "18px"); 
+
+            // Add y axis label
+            svg.append("text")
+              .attr("class", "y-label")
+              .attr("x", -height / 2)
+              .attr("y", -margin.left + 20)
+              .attr("transform", "rotate(-90)")
+              .attr("text-anchor", "middle")
+              .text("OECD Countries")
+              .attr("font-weight", "bold")
+              .attr("font-size", "18px"); 
+
+            // Define update function
+            function update() {
+              // Get data for the current year
+              const yearData = data.map(d => ({ country: d.Country, value: +d[years[yearIndex]] }));
+
+              // Update y positions of bars for each country
+              yScale.domain(yearData.map(d => d.country));
+
+              // Update bars
+              const bars = svg.selectAll(".bar")
+                .data(yearData, d => d.country);
+
+              bars.enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr("x", 0)
+                .attr("y", d => yScale(d.country))
+                .attr("width", d => xScale(d.value))
+                .attr("height", yScale.bandwidth())
+                .attr("fill", d => countryColors[d.country])
+                .merge(bars)
+                .transition()
+                .duration(500) // Transition duration for bars
+                .ease(d3.easeLinear) // Linear easing for smooth effect
+                .attr("x", 0)
+                .attr("width", d => xScale(d.value))
+                .attr("y", d => yScale(d.country))
+                .attr("height", yScale.bandwidth());
+
+              bars.exit().remove();
+
+              // Remove old text labels
+              svg.selectAll(".label").remove();
+
+              // Add text labels to bars with transition
+              const labels = svg.selectAll(".label")
+                .data(yearData, d => d.country);
+
+              labels.enter()
+                .append("text")
+                .attr("class", "label")
+                .attr("x", d => xScale(d.value) + 5)
+                .attr("y", d => yScale(d.country) + yScale.bandwidth() / 2)
+                .attr("dy", ".35em")
+                .attr("font-size", "14px")
+                .attr("fill", "black")
+                .attr("font-weight", "bold")
+                .text(d => d.value.toFixed(2) + "%")
+                .merge(labels)
+                .transition()
+                .duration(1500) // Transition duration for labels (same as bars)
+                .ease(d3.easeLinear) // Linear easing for smooth effect
+                .delay(1500) // Delay to synchronise with bar transition
+                .attr("x", d => xScale(d.value) + 5)
+                .attr("y", d => yScale(d.country) + yScale.bandwidth() / 2);
+
+              // Update year display
+              svg.selectAll(".year").remove();
+              svg.append("text")
+                .attr("class", "year")
+                .attr("x", width + 100)
+                .attr("y", 0 - (margin.top / 2))
+                .attr("dy", "1em")
+                .text(years[yearIndex])
+                .attr("font-weight", "bold")
+                .attr("font-size", "52px");
+
+              // Increment year index
+              yearIndex = (yearIndex + 1) % years.length;
+            }
+
+            // Call update function repeatedly
+            setInterval(update, 3500); 
+
+            // Initial call to update function
+            update();
+          });
+        </script>
       </div>
 
       <br>
@@ -72,7 +250,146 @@
           conditions over time in these populations.</p>
         <div id="charthigh"></div> <!-- Container to display the high chart -->
         <script>
-          
+          const margin2 = { top: 50, right: 220, bottom: 100, left: 100 };
+          const width2 = 1600 - margin2.left - margin2.right;
+          const height2 = 800 - margin2.top - margin2.bottom;
+
+          // Append SVG to the chart div
+          const svg2 = d3.select("#charthigh")
+            .append("svg")
+            .attr("width", width2 + margin2.left + margin2.right)
+            .attr("height", height2 + margin2.top + margin2.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin2.left},${margin2.top})`);
+
+          // Load CSV data
+          d3.csv("./Datasets/changes/high.csv").then(function (data) {
+            // Extract years from the data
+            const years = data.columns.slice(1);
+
+            // Set initial year index
+            let yearIndex = 0;
+
+            // Define x scale
+            const xScale = d3.scaleLinear()
+              .domain([0, 100])
+              .range([0, width2]);
+
+            // Define y scale
+            const yScale = d3.scaleBand()
+              .domain(data.map(d => d.Country))
+              .range([height2, 0])
+              .padding(0.1);
+
+            // Draw x axis
+            svg2.append("g")
+              .attr("class", "x-axis")
+              .attr("transform", `translate(0,${height})`)
+              .call(d3.axisBottom(xScale).tickFormat(d => d + "%"));
+
+            // Draw y axis
+            svg2.append("g")
+              .attr("class", "y-axis")
+              .call(d3.axisLeft(yScale));
+
+            // Add x axis label
+            svg2.append("text")
+              .attr("class", "x-label")
+              .attr("x", width2 / 2)
+              .attr("y", height2 + margin2.bottom - 40)
+              .attr("text-anchor", "middle")
+              .text("Good/very good health, total aged 15+, Highest Income (% of population)")
+              .attr("font-weight", "bold")
+              .attr("font-size", "18px"); 
+
+            // Add y axis label
+            svg2.append("text")
+              .attr("class", "y-label")
+              .attr("x", -height2 / 2)
+              .attr("y", -margin2.left + 20)
+              .attr("transform", "rotate(-90)")
+              .attr("text-anchor", "middle")
+              .text("OECD Countries")
+              .attr("font-weight", "bold")
+              .attr("font-size", "18px"); 
+
+            // Define update function
+            function update() {
+              // Get data for the current year
+              const yearData = data.map(d => ({ country: d.Country, value: +d[years[yearIndex]] }));
+
+              // Update y positions of bars for each country
+              yScale.domain(yearData.map(d => d.country));
+
+              // Update bars
+              const bars = svg2.selectAll(".bar")
+                .data(yearData, d => d.country);
+
+              bars.enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr("x", 0)
+                .attr("y", d => yScale(d.country))
+                .attr("width", d => xScale(d.value))
+                .attr("height", yScale.bandwidth())
+                .attr("fill", d => countryColors[d.country])
+                .merge(bars)
+                .transition()
+                .duration(500) // Transition duration for bars
+                .ease(d3.easeLinear) // Linear easing for smooth effect
+                .attr("x", 0)
+                .attr("width", d => xScale(d.value))
+                .attr("y", d => yScale(d.country))
+                .attr("height", yScale.bandwidth());
+
+              bars.exit().remove();
+
+              // Remove old text labels
+              svg2.selectAll(".label").remove();
+
+              // Add text labels to bars with transition
+              const labels = svg2.selectAll(".label")
+                .data(yearData, d => d.country);
+
+              labels.enter()
+                .append("text")
+                .attr("class", "label")
+                .attr("x", d => xScale(d.value) + 5)
+                .attr("y", d => yScale(d.country) + yScale.bandwidth() / 2)
+                .attr("dy", ".35em")
+                .attr("font-size", "14px")
+                .attr("fill", "black")
+                .attr("font-weight", "bold")
+                .text(d => d.value.toFixed(2) + "%")
+                .merge(labels)
+                .transition()
+                .duration(1500) // Transition duration for labels (same as bars)
+                .ease(d3.easeLinear) // Linear easing for smooth effect
+                .delay(1500) // Delay to synchronize with bar transition
+                .attr("x", d => xScale(d.value) + 5)
+                .attr("y", d => yScale(d.country) + yScale.bandwidth() / 2);
+
+              // Update year display
+              svg2.selectAll(".year").remove();
+              svg2.append("text")
+                .attr("class", "year")
+                .attr("x", width2 + 100)
+                .attr("y", 0 - (margin2.top / 2))
+                .attr("dy", "1em")
+                .text(years[yearIndex])
+                .attr("font-weight", "bold")
+                .attr("font-size", "52px");
+
+              // Increment year index
+              yearIndex = (yearIndex + 1) % years.length;
+            }
+
+            // Call update function repeatedly
+            setInterval(update, 3500); 
+
+            // Initial call to update function
+            update();
+          });
         </script>
 
       </div>

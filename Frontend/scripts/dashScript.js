@@ -373,7 +373,7 @@ function updateChart(country) {
     // Add new lines and circles based on the selected country's data
     // Add X axis
     var xScale = d3
-      .scaleLinear()
+      .scaleTime()
       .domain(
         d3.extent(data, function (d) {
           return d.year;
@@ -383,7 +383,7 @@ function updateChart(country) {
     lsvg
       .append("g")
       .attr("transform", `translate(0, ${lh - padding})`)
-      .call(d3.axisBottom(xScale).ticks(5));
+      .call(d3.axisBottom(xScale).ticks(5).tickFormat(d3.format("d")));
 
     // Add Y axis
     var yScale = d3
