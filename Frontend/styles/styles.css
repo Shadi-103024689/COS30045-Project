@@ -325,6 +325,14 @@ h2 {
 
 .tooltip {
   background: rgba(255, 255, 255, 0.9);
+  max-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tNoInfo {
+  max-height: 50px;
+  padding-bottom: 10px;
 }
 
 .toolSub {

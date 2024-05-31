@@ -43,6 +43,17 @@ function mouseOver(data, xy) {
     .style("top", `${xy[1]}px`)
     .style("left", `${xy[0]}px`);
 
+  if (country == "South Korea" || country == "Costa Rica") {
+    tool_tip.html(`<h3>${country} wellness data unavailable </h3>`);
+    tool_tip
+      .append("img")
+      .attr("class", "tNoInfo")
+      .attr("src", "./assets/No Data Icon.svg")
+      .attr("alt", "no info)");
+
+    tool_tip.append("p").html(`Social Health Coverage: ${value}%`);
+    return;
+  }
   barChart(country);
 }
 
