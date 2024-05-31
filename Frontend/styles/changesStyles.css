@@ -96,6 +96,7 @@ main {
   padding: 10px;
   margin: 10px;
   width: 400px;
+  text-align: left;
 }
 
 .continent h2 {
