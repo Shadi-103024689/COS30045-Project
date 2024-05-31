@@ -34,13 +34,13 @@ function updateChart(chartId, country) {
             .attr("width", width)
             .attr("height", height);
 
-        var xScale = d3.scaleLinear()
+        var xScale = d3.scaleTime()
             .domain(d3.extent(data, function (d) { return d.year; }))
             .range([padding, width - padding]);
 
         svg.append("g")
             .attr("transform", `translate(0, ${height - padding})`)
-            .call(d3.axisBottom(xScale).ticks(5));
+            .call(d3.axisBottom(xScale).ticks(5).tickFormat(d3.format("d")));
 
         var yScale = d3.scaleLinear()
             .domain([0, 100])
