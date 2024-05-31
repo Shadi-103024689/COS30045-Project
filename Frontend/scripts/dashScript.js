@@ -34,6 +34,7 @@ var tool_tip = d3
 function mouseOver(data, xy) {
   country = data.attr("data-name");
   value = data.attr("data-value");
+
   tool_tip
     .style("visibility", "visible")
     .html(
@@ -41,7 +42,24 @@ function mouseOver(data, xy) {
             <p class="toolSub">High vs Low Income</p>`
     )
     .style("top", `${xy[1]}px`)
-    .style("left", `${xy[0]}px`);
+    .style("left", `${xy[0]}px`)
+    .on("click", function (d) {
+      if (
+        country == "Chile" ||
+        country == "Costa Rica" ||
+        country == "South Korea"
+      ) {
+        noData();
+        return;
+      }
+      if (value) {
+        if (noDataValue) {
+          foundData();
+        }
+        updateChart(country);
+        updateHeading(country);
+      }
+    });
 
   if (country == "South Korea" || country == "Costa Rica") {
     tool_tip.html(`<h3>${country} wellness data unavailable </h3>`);
