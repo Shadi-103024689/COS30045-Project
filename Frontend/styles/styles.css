@@ -1,3 +1,5 @@
+/*Styles for index.html, dashboard.html and countrycomparison.html*/
+
 /* Reset styles */
 * {
   margin: 0;
@@ -108,14 +110,15 @@ h1 {
   padding: 20px 50px;
   height: fit-content;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 0.5fr;
   grid-row-gap: 50px;
 }
 .content > div {
   padding: 20px;
 }
 
-.row1 {
+.row1,
+.row3 {
   display: grid;
   grid-template-columns: 2fr 1.5fr;
   grid-column-gap: 30px;
@@ -131,8 +134,12 @@ img {
   max-width: 100%;
 }
 
+.swinLogo {
+  width: 100%;
+}
+
 .infoContainer1,
-.infoContainer2 {
+.infoContainer2 .infoContainer3 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -331,7 +338,6 @@ h2 {
 }
 /*------Lets Compare Styling------*/
 
-
 .container-compare {
   animation: 1.5s fadeInUpText;
   max-width: 1000px;
@@ -365,7 +371,8 @@ h2 {
   border-radius: 8px;
 }
 
-#chart1, #chart2 {
+#chart1,
+#chart2 {
   animation: 1.5s fadeInUpText;
   background-color: white; /* Ensure a white background for the SVG containers */
   width: 500px;
