@@ -15,6 +15,17 @@ body {
   min-height: 100vh;
 }
 
+@keyframes fadeInUpText {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
 /* Container styles */
 .container {
   width: 90%;
@@ -60,6 +71,10 @@ nav ul li a {
 
 nav ul li a:hover {
   color: red;
+}
+
+main {
+  animation: 1.5s fadeInUpText;
 }
 
 .button-container {
