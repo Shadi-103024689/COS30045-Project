@@ -1,6 +1,10 @@
+var social = "socialCSV";
+var socialPath = "./Datasets/rawSocial.csv";
+var health = "healthCSV";
+var healthPath = "./Datasets/healthStatus.csv";
 // Function to fetch and display CSV file content
-function displayCSV() {
-  fetch("./Datasets/healthStatus.csv")
+function displayCSV(path, containerName) {
+  fetch(`${path}`)
     .then((response) => response.text())
     .then((csv) => {
       const rows = csv.split("\n");
@@ -14,9 +18,10 @@ function displayCSV() {
         html += "</tr>";
       });
       html += "</table>";
-      document.getElementById("csv-content").innerHTML = html;
+      document.getElementById(`${containerName}`).innerHTML = html;
     });
 }
 
 // Call the function to display CSV content
-displayCSV();
+displayCSV(healthPath, health);
+displayCSV(socialPath, social);
