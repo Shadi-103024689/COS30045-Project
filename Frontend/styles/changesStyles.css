@@ -1,0 +1,147 @@
+/* Style for the Changes Over the Years page*/
+
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+@keyframes fadeInUpText {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+/* Container styles */
+.container {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  flex: 1;
+}
+
+/* Container styles */
+.headerContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* Header styles */
+header {
+  background-color: black;
+  padding: 10px 125px;
+}
+
+.logo img {
+  width: 200px;
+}
+
+nav {
+  margin-left: auto;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline;
+  margin-left: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+nav ul li a:hover {
+  color: red;
+}
+
+main {
+  animation: 1.5s fadeInUpText;
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+#chart-container {
+  width: 50%;
+}
+
+.continent {
+  background-color: black;
+  color: white;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+  width: 400px;
+  text-align: left;
+}
+
+.continent h2 {
+  margin-top: 0;
+}
+
+.continent button {
+  margin: 5px;
+  padding: 8px 16px;
+  background-color: #e00000;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.continent button:hover {
+  background-color: #a00000;
+}
+
+.half-page-container {
+  height: 70vh;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 auto;
+}
+
+.left-container {
+  width: 400px;
+}
+
+.right-container {
+  width: 1100px;
+}
+
+/* Footer styles */
+footer {
+  background-color: red;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+}
+
+footer p {
+  margin: 0;
+}
