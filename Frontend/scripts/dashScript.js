@@ -9,6 +9,9 @@ let noDataValue = false;
 
 buttons.forEach((button) => {
   button.addEventListener("click", function () {
+    if (noDataValue) {
+      foundData();
+    }
     updateChart(button.textContent);
     updateHeading(button.textContent);
   });
